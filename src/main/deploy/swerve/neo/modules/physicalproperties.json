@@ -1,12 +1,12 @@
 {
   "wheelDiameter": 4,
   "gearRatio": {
-    "drive": 8.14,
+    "drive": 6.75,
     "angle": 21.42
   },
   "currentLimit": {
-    "drive": 1,
-    "angle": 1
+    "drive": 10,
+    "angle": 10
   },
   "rampRate": {
     "drive": 0.15,
