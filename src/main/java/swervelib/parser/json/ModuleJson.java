@@ -69,11 +69,11 @@ public class ModuleJson
     SwerveAbsoluteEncoder absEncoder = encoder.createEncoder();
 
     // If the absolute encoder is attached.
-    // if (absEncoder == null)
-    // {
-    //   absEncoder = angle.createIntegratedEncoder(angleMotor);
-    //   angleMotor.setAbsoluteEncoder(absEncoder);
-    // }
+    if (absEncoder == null)
+    {
+      absEncoder = angle.createIntegratedEncoder(angleMotor);
+      angleMotor.setAbsoluteEncoder(absEncoder);
+    }
 
     return new SwerveModuleConfiguration(
         drive.createMotor(true),
