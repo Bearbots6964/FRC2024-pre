@@ -128,7 +128,7 @@ public class DeviceJson
               throw new RuntimeException("Spark MAX " + id + " MUST have a encoder attached to the motor controller.");
             }
             // We are creating a motor for an angle motor which will use the absolute encoder attached to the data port.
-            return new SparkMaxBrushedMotorSwerve(id, isDriveMotor, Type.kNoSensor, 0, false);
+            return new SparkMaxBrushedMotorSwerve(id, isDriveMotor, Type.kQuadrature, 4096, true);
         }
       case "neo":
       case "sparkmax":
@@ -154,7 +154,6 @@ public class DeviceJson
     switch (type)
     {
       case "sparkmax":
-        return new SparkMaxEncoderSwerve(motor);
       case "falcon":
       case "talonfx":
         return null;
