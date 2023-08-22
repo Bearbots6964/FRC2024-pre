@@ -104,7 +104,7 @@ public final class Autos
    * @param rotation          Rotation to go to.
    * @param holonomicRotation Holonomic rotation to be at.
    * @param offset            Offset from the April Tag.
-   * @return {@link FollowTrajectory} command. May return null if cannot load field.
+   * @return {@link FollowTrajectory} command. May return null if it cannot load field.
    */
   public static CommandBase driveToAprilTag(SwerveSubsystem swerve, int id, Rotation2d rotation,
                                             Rotation2d holonomicRotation, Translation2d offset)
