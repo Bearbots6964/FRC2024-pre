@@ -134,14 +134,14 @@ public class TalonFXSwerve extends SwerveMotor
    * @param positionConversionFactor The conversion factor to apply for position.
    *                                 <p><br>
    *                                 Degrees: <br>
-   *                                 {@code
+   *                                 <code>
    *                                 360 / (angleGearRatio * encoderTicksPerRotation)
-   *                                 }<br>
+   *                                 </code><br>
    *                                 <p><br>
    *                                 Meters:<br>
-   *                                 {@code
+   *                                 <code>
    *                                 (Math.PI * wheelDiameter) / (driveGearRatio * encoderTicksPerRotation)
-   *                                 }
+   *                                 </code>
    */
   @Override
   public void configureIntegratedEncoder(double positionConversionFactor)

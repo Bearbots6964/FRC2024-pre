@@ -4,6 +4,7 @@ import com.revrobotics.SparkMaxRelativeEncoder.Type;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import swervelib.encoders.AnalogAbsoluteEncoderSwerve;
 import swervelib.encoders.CANCoderSwerve;
+import swervelib.encoders.CanAndCoderSwerve;
 import swervelib.encoders.SparkMaxEncoderSwerve;
 import swervelib.encoders.SwerveAbsoluteEncoder;
 import swervelib.imu.ADIS16448Swerve;
@@ -42,9 +43,11 @@ public class DeviceJson
   /**
    * Create a {@link SwerveAbsoluteEncoder} from the current configuration.
    *
+   * @param motor {@link SwerveMotor} of which attached encoders will be created from, only used when the type is
+   *              "attached" or "canandencoder".
    * @return {@link SwerveAbsoluteEncoder} given.
    */
-  public SwerveAbsoluteEncoder createEncoder()
+  public SwerveAbsoluteEncoder createEncoder(SwerveMotor motor)
   {
     switch (type)
     {
@@ -52,6 +55,10 @@ public class DeviceJson
       case "integrated":
       case "attached":
         return null;
+      case "canandcoder":
+        return new SparkMaxEncoderSwerve(motor, 360);
+      case "canandcoder_can":
+        return new CanAndCoderSwerve(id);
       case "thrifty":
       case "throughbore":
       case "dutycycle":
@@ -128,7 +135,7 @@ public class DeviceJson
               throw new RuntimeException("Spark MAX " + id + " MUST have a encoder attached to the motor controller.");
             }
             // We are creating a motor for an angle motor which will use the absolute encoder attached to the data port.
-            return new SparkMaxBrushedMotorSwerve(id, isDriveMotor, Type.kQuadrature, 4096, true);
+            return new SparkMaxBrushedMotorSwerve(id, isDriveMotor, Type.kNoSensor, 0, false);
         }
       case "neo":
       case "sparkmax":
@@ -154,11 +161,32 @@ public class DeviceJson
     switch (type)
     {
       case "sparkmax":
+        return new SparkMaxEncoderSwerve(motor, 1);
       case "falcon":
       case "talonfx":
         return null;
     }
     throw new RuntimeException(
         "Could not create absolute encoder from data port of " + type + " id " + id);
+  }
+
+  /**
+   * Get the encoder pulse per rotation based off of the encoder type.
+   *
+   * @param angleEncoderPulsePerRotation The configured pulse per rotation.
+   * @return The correct pulse per rotation based off of the encoder type.
+   */
+  public int getPulsePerRotation(int angleEncoderPulsePerRotation)
+  {
+    switch (type)
+    {
+      case "canandcoder":
+        return 360;
+      case "falcon":
+      case "talonfx":
+        return 2048;
+      default:
+        return angleEncoderPulsePerRotation;
+    }
   }
 }
