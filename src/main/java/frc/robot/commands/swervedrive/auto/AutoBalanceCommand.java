@@ -20,7 +20,7 @@ public class AutoBalanceCommand extends CommandBase {
     public AutoBalanceCommand(SwerveSubsystem swerveSubsystem) {
         this.swerveSubsystem = swerveSubsystem;
         controller = new PIDController(1.0, 0.0, 0.0);
-        controller.setTolerance(1);
+        controller.setTolerance(1.0);
         controller.setSetpoint(0.0);
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
